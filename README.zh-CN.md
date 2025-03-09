@@ -1,6 +1,6 @@
 <div align="center">
   <img alt="logo" width="120" height="120" src="./public/favicon.png">
-  <h1>Mobile + Vue = MobVue</h1>
+  <h1>SpeakFlow - 实时语音识别</h1>
 </div>
 
 [![github release](https://img.shields.io/github/v/release/un-pany/mobvue?style=flat)](https://github.com/un-pany/mobvue/releases)
@@ -11,15 +11,24 @@
 
 ## 简介
 
-MobVue 是一个精心制作的移动端 H5 模板，基于 Vue3、Vite、TypeScript、Vant 等主流技术
+SpeakFlow 是一款功能强大的实时语音识别应用，基于 Vue 3、TypeScript 和 Vant 构建。它能够准确地将语音转换为文字，并支持多种语言和离线模式。
 
-## 通知
+## 核心功能
 
-> [!NOTE]
-> 为爱发电！所有源码均免费开源，如果对你有帮助，欢迎点个 Star 支持一下！
+- **实时语音识别** - 即时将语音转换为文本
+- **多语言支持** - 支持中文、英文等多种语言的转写
+- **多种识别服务** - 支持科大讯飞实时语音转写和语音听写服务
+- **复制与清除功能** - 轻松管理和分享您的转写内容
+- **精美界面** - 现代玻璃态设计与流畅动画
+- **响应式设计** - 在移动设备和桌面设备上均可无缝运行
 
-> [!TIP]
-> 正式推出付费服务，如果不想自己动手，但想移除 TS 或其他模块？试试懒人套餐！[点击看看](https://github.com/un-pany/mobvue/issues/2)
+## 技术亮点
+
+- 使用 Vue 3 组合式 API 进行状态管理
+- 集成 WebSocket 实现实时数据流
+- 使用 Web Audio API 处理音频
+- 语音活动检测提高识别精度
+- 多服务支持，轻松切换不同提供商
 
 ## 使用
 
@@ -133,32 +142,6 @@ pnpm test
 
 **发行版 & 更新日志**：[releases](https://github.com/un-pany/mobvue/releases)
 
-## 特性
-
-🔥 最新的 [语法](https://vuejs.org/api/sfc-script-setup.html)、[配置](./vite.config.ts)、[依赖](./package.json)
-
-📍 [纯一级路由设计](./src/router/index.ts) - 清晰且缓存友好
-
-📱 移动端适配 [px2vw](./postcss.config.ts) - 并且宽屏友好
-
-🌐 浏览器适配 [@vitejs/plugin-legacy](https://github.com/vitejs/vite/tree/main/packages/plugin-legacy) + [autoprefixer](https://github.com/postcss/autoprefixer) + [browserslist](https://github.com/browserslist/browserslist) - 兼容多种浏览器和低版本浏览器
-
-🧩 [布局系统](./src/layout) - 配置化的
-
-🔒 权限控制 [页面级](./src/router/guard.ts)、[按钮级](./src/pages/demo/permission.vue)
-
-🌗 主题模式 [Dark Mode](./src/common/assets/styles/variables.css)
-
-🫧 [拥抱原子化 CSS](./uno.config.ts)
-
-🔧 [组件](https://github.com/unplugin/unplugin-vue-components) 和 [API](https://github.com/unplugin/unplugin-auto-import) 自动按需导入
-
-🔎 [Husky](./.husky/pre-commit) + [lint-staged](./package.json) + [ESLint](./eslint.config.js) - 规范代码
-
-💪🏻 依然 [TypeScript](./tsconfig.json) - 严格模式且无 `any`
-
-👀 更多功能 - [路由缓存](./src/pinia/stores/keep-alive.ts)、[带防御的水印](./src/common/composables/useWatermark.ts)、[灰色模式, 色弱模式](./src/common/composables/useGrayscaleAndColorblind.ts)、[SVG Loader](https://github.com/jpkleemans/vite-svg-loader)、[VConsole](./src/plugins/console.ts)、[白屏加载动画](./public/app-loading.css)、[单元测试](./tests)
-
 ## 技术栈
 
 **Vue3**：采用 Vue3 + script setup 最新的 Vue3 组合式 API
@@ -173,11 +156,11 @@ pnpm test
 
 **TypeScript**：JavaScript 语言的超集
 
+**Socket.io**：用于与语音识别服务器进行实时通信
+
+**Web Audio API**：用于捕获和处理音频输入
+
 **pnpm**：更快速的，节省磁盘空间的包管理工具
-
-**ESlint**：代码校验与格式化
-
-**Axios**：发送网络请求（已封装好）
 
 **UnoCSS**：具有高性能且极具灵活性的即时原子化 CSS 引擎
 

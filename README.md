@@ -1,6 +1,6 @@
 <div align="center">
   <img alt="logo" width="120" height="120" src="./public/favicon.png">
-  <h1>Mobile + Vue = MobVue</h1>
+  <h1>SpeakFlow - Real-time Speech Recognition</h1>
 </div>
 
 [![github release](https://img.shields.io/github/v/release/un-pany/mobvue?style=flat)](https://github.com/un-pany/mobvue/releases)
@@ -11,7 +11,24 @@
 
 ## Introduction
 
-MobVue is a well-crafted mobile web app template, built with popular technologies such as Vue3, Vite, TypeScript, and Vant
+SpeakFlow is a powerful real-time speech recognition application built with Vue 3, TypeScript, and Vant. It provides accurate transcription of spoken words with support for multiple languages and offline mode.
+
+## Key Features
+
+- **Real-time Speech Recognition** - Convert speech to text instantly
+- **Multi-language Support** - Transcribe in Chinese, English, and more
+- **Multiple Recognition Services** - Support for iFlytek RTASR and STT services
+- **Copy & Clear Functions** - Easily manage and share your transcripts
+- **Beautiful UI** - Modern glass morphism design with smooth animations
+- **Responsive Design** - Works seamlessly on mobile and desktop devices
+
+## Technical Highlights
+
+- Built with Vue 3 Composition API for state management
+- WebSocket integration for real-time data streaming
+- Audio processing with Web Audio API
+- Voice activity detection for better recognition accuracy
+- Multi-service support with easy switching between providers
 
 ## Notifications
 
@@ -19,7 +36,7 @@ MobVue is a well-crafted mobile web app template, built with popular technologie
 > Powered by love! All source code is free and open-source. If you find it helpful, feel free to give a star to support!
 
 > [!TIP]
-> Paid services are officially launched! If you don’t want to do it yourself but want to remove TS or other modules, try the lazy package! [Click to check it out](https://github.com/un-pany/mobvue/issues/2)
+> Paid services are officially launched! If you don't want to do it yourself but want to remove TS or other modules, try the lazy package! [Click to check it out](https://github.com/un-pany/mobvue/issues/2)
 
 ## Usage
 
@@ -172,6 +189,10 @@ pnpm test
 **Vue Router**：The routing system
 
 **TypeScript**：A superset of JavaScript
+
+**Socket.io**：For real-time communication with the speech recognition server
+
+**Web Audio API**：For capturing and processing audio input
 
 **pnpm**：A faster, disk-space-saving package manager
 
