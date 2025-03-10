@@ -99,6 +99,83 @@ export const translateRoutes: RouteRecordRaw[] = [
     name: 'RtAsr',
     meta: {
       title: "语音识别（实时）",
+      layout: {
+        navBar: {
+          showNavBar: true,
+          showLeftArrow: true
+        },
+        tabbar: {
+          showTabbar: false
+        }
+      }
+    }
+  },
+  {
+    path: "/translate",
+    component: () => import("@/pages/translate/rtasr-translation.vue"),
+    name: 'RtasrTranslation',
+    meta: {
+      title: "语音实时翻译",
+      layout: {
+        navBar: {
+          showNavBar: true,
+          showLeftArrow: true
+        },
+        tabbar: {
+          showTabbar: false
+        }
+      }
+    }
+  },
+  {
+    path: "/history",
+    component: () => import("@/pages/history/index.vue"),
+    name: 'History',
+    meta: {
+      title: "翻译历史",
+      layout: {
+        navBar: {
+          showNavBar: false,
+          showLeftArrow: true
+        },
+        tabbar: {
+          showTabbar: false
+        }
+      }
+    }
+  },
+  {
+    path: "/help",
+    component: () => import("@/pages/help/index.vue"),
+    name: 'Help',
+    meta: {
+      title: "使用帮助",
+      layout: {
+        navBar: {
+          showNavBar: true,
+          showLeftArrow: true
+        },
+        tabbar: {
+          showTabbar: false
+        }
+      }
+    }
+  },
+  {
+    path: "/about",
+    component: () => import("@/pages/about/index.vue"),
+    name: 'About',
+    meta: {
+      title: "关于我们",
+      layout: {
+        navBar: {
+          showNavBar: true,
+          showLeftArrow: true
+        },
+        tabbar: {
+          showTabbar: false
+        }
+      }
     }
   }
 ] 

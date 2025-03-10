@@ -1,17 +1,18 @@
 <script setup lang="ts">
 import type { LoginRequestData } from "./apis/type"
-import { useUserStore } from "@/pinia/stores/user"
+import { useAuth } from "@/common/composables/useAuth"
 import Description from "@@/components/Description.vue"
-import { loginApi } from "./apis"
 import { ref, reactive, onMounted } from "vue"
-import { useRouter } from "vue-router"
-import { showNotify } from "vant"
+import { useRouter, useRoute } from "vue-router"
 
 const router = useRouter()
-const userStore = useUserStore()
-const loading = ref(false)
+const route = useRoute()
+const { loading, loginWithApi } = useAuth()
 const showForm = ref(false)
 const rememberMe = ref(true)
+
+// 获取要跳转的路径（如果有）
+const redirectPath = route.query.redirect as string || '/'
 
 // 表单引用，用于聚焦
 const usernameField = ref<HTMLInputElement | null>(null)
@@ -21,33 +22,8 @@ const loginFormData: LoginRequestData = reactive({
   password: "12345678"
 })
 
-function onSubmit() {
-  loading.value = true
-  loginApi(loginFormData)
-    .then(({ data }) => {
-      showNotify({
-        type: 'success',
-        message: '登录成功',
-        duration: 1500
-      })
-      userStore.setToken(data.token)
-      
-      // 添加延迟以显示成功通知
-      setTimeout(() => {
-        router.push("/")
-      }, 800)
-    })
-    .catch((error) => {
-      showNotify({
-        type: 'danger',
-        message: error?.message || '登录失败，请检查用户名和密码',
-        duration: 2000
-      })
-      loginFormData.password = ""
-    })
-    .finally(() => {
-      loading.value = false
-    })
+async function onSubmit() {
+  await loginWithApi(loginFormData.username, loginFormData.password, redirectPath)
 }
 
 onMounted(() => {

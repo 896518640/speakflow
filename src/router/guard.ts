@@ -1,6 +1,6 @@
 import type { Router } from "vue-router"
-import { useKeepAliveStore } from "@/pinia/stores/keep-alive"
 import { useUserStore } from "@/pinia/stores/user"
+import { useKeepAliveStore } from "@/pinia/stores/keep-alive"
 import { isWhiteList } from "@/router/whitelist"
 import { useTitle } from "@@/composables/useTitle"
 import { getToken } from "@@/utils/cache/cookies"
@@ -15,7 +15,7 @@ const LOGIN_PATH = "/login"
 
 export function registerNavigationGuard(router: Router) {
   // 全局前置守卫
-  router.beforeEach((to, _from) => {
+  router.beforeEach((to, from) => {
     NProgress.start()
     const userStore = useUserStore()
     // 如果没有登录
@@ -23,8 +23,11 @@ export function registerNavigationGuard(router: Router) {
       // 如果在免登录的白名单中，则直接进入
       if (isWhiteList(to)) return true
 
-      // 其他没有访问权限的页面将被重定向到登录页面
-      return LOGIN_PATH
+      // 其他没有访问权限的页面将被重定向到登录页面，并携带原始目标路径
+      return {
+        path: LOGIN_PATH,
+        query: { redirect: to.fullPath }
+      }
     }
     // 如果已经登录，并准备进入 Login 页面，则重定向到主页
     if (to.path === LOGIN_PATH) return "/"
