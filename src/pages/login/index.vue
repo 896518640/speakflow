@@ -105,6 +105,14 @@ onMounted(() => {
             <span>没有账号？</span>
             <router-link to="/login/register" class="register-link">立即注册</router-link>
           </div>
+
+          <div class="test-account-info">
+            <p class="test-account-title">测试账号</p>
+            <div class="test-account">
+              <p><strong>管理员：</strong> admin / 12345678</p>
+              <p><strong>普通用户：</strong> editor / 12345678</p>
+            </div>
+          </div>
         </van-form>
       </transition>
     </div>
@@ -329,6 +337,30 @@ onMounted(() => {
       }
     }
   }
+}
+
+.test-account-info {
+  margin-top: 20px;
+  padding: 15px;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  text-align: left;
+}
+
+.test-account-title {
+  font-weight: 600;
+  margin: 0 0 10px 0;
+  color: #374151;
+  font-size: 14px;
+  text-align: center;
+}
+
+.test-account p {
+  margin: 5px 0;
+  font-size: 13px;
+  color: #4b5563;
 }
 
 /* 动画 */

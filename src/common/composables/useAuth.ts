@@ -14,8 +14,8 @@ export function useAuth() {
   const userStore = useUserStore();
   const loading = ref(false);
   
-  // 正式登录API调用
-  const loginWithApi = async (username: "admin" | "editor", password: string, redirectPath = '/') => {
+  // 登录API调用
+  const loginWithApi = async (username: string, password: string, redirectPath = '/') => {
     try {
       loading.value = true;
       const { data } = await loginApi({ username, password });
@@ -27,6 +27,9 @@ export function useAuth() {
       });
       
       userStore.setToken(data.token);
+      
+      // 获取用户信息
+      await userStore.getInfo();
       
       // 添加延迟以显示成功通知
       setTimeout(() => {
@@ -40,59 +43,6 @@ export function useAuth() {
         message: error?.message || '登录失败，请检查用户名和密码',
         duration: 2000
       });
-      return false;
-    } finally {
-      loading.value = false;
-    }
-  };
-  
-  // 模拟登录（用于开发和测试）
-  const mockLogin = async (username = '游客', redirectPath?: string) => {
-    try {
-      loading.value = true;
-      const token = `mock-token-${username}-${Date.now()}`;
-      
-      // 保存token并获取用户信息
-      userStore.setToken(token);
-      
-      // 延迟模拟API请求
-      await new Promise(resolve => setTimeout(resolve, 800));
-      
-      // 获取用户信息（在实际应用中，这会由路由守卫或其他机制触发）
-      userStore.getInfo();
-      
-      showSuccessToast('登录成功');
-      
-      // 如果指定了跳转路径，则导航到该路径
-      if (redirectPath) {
-        router.push(redirectPath);
-      }
-      
-      return true;
-    } catch (error) {
-      showToast('登录失败，请稍后再试');
-      console.error('Mock login error:', error);
-      return false;
-    } finally {
-      loading.value = false;
-    }
-  };
-  
-  // 模拟注册
-  const mockRegister = async (username: string, email: string, password: string) => {
-    try {
-      loading.value = true;
-      
-      // 延迟模拟API请求
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      showSuccessToast('注册成功');
-      
-      // 注册成功后自动登录
-      return await mockLogin(username);
-    } catch (error) {
-      showToast('注册失败，请稍后再试');
-      console.error('Mock register error:', error);
       return false;
     } finally {
       loading.value = false;
@@ -118,8 +68,6 @@ export function useAuth() {
   return {
     loading,
     loginWithApi,
-    mockLogin,
-    mockRegister,
     logout,
     isLoggedIn
   };

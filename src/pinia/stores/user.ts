@@ -39,6 +39,10 @@ export const useUserStore = defineStore("user", () => {
   const token = ref<string>(getToken() || "")
   const roles = ref<string[]>([])
   const username = ref<string>("")
+  const userId = ref<string>("")
+  const email = ref<string>("")
+  const role = ref<string>("")
+  const isActive = ref<boolean>(false)
 
   // === 添加翻译历史相关状态 ===
   const translationHistory = ref<TranslationHistoryItem[]>([]);
@@ -70,9 +74,30 @@ export const useUserStore = defineStore("user", () => {
 
   // 获取用户详情
   const getInfo = async () => {
-    const { data } = await getCurrentUserApi()
-    username.value = data.username
-    roles.value = data.roles
+    try {
+      const { data } = await getCurrentUserApi()
+      username.value = data.username
+      userId.value = data.id
+      email.value = data.email
+      role.value = data.role
+      roles.value = data.roles || [data.role]
+      isActive.value = data.isActive
+
+      // 更新用户个人资料
+      profile.value = {
+        id: data.id,
+        username: data.username,
+        email: data.email,
+        avatar: '',
+        isPremium: data.role === 'admin' || data.role === 'premium',
+        preferences: { ...defaultPreferences },
+      }
+
+      return data
+    } catch (error) {
+      resetToken()
+      return null
+    }
   }
 
   const changeRoles = (role: string) => {
@@ -88,6 +113,11 @@ export const useUserStore = defineStore("user", () => {
     removeToken()
     token.value = ""
     roles.value = []
+    username.value = ""
+    userId.value = ""
+    email.value = ""
+    role.value = ""
+    isActive.value = false
     
     // 重置用户资料为游客状态
     profile.value = {
@@ -214,7 +244,7 @@ export const useUserStore = defineStore("user", () => {
 
   return { 
     // 认证相关导出
-    token, roles, username, isLoggedIn,
+    token, roles, username, userId, email, role, isActive, isLoggedIn,
     setToken, getInfo, changeRoles, resetToken, logout,
     
     // 翻译历史相关导出
